@@ -1,8 +1,12 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export default function Home() {
+  const [showSmsForm, setShowSmsForm] = useState(false);
+  const [senderEmail, setSenderEmail] = useState("");
+  const [senderPhone, setSenderPhone] = useState("");
+
   const contact = {
     firstName: "Robin",
     lastName: "Toomey",
@@ -32,15 +36,32 @@ export default function Home() {
     link.remove();
     URL.revokeObjectURL(url);
 
-    const smsBody = encodeURIComponent(
-      "Hi Robin, I just added you to my network."
-    );
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const smsUrl = isIOS ? `sms:&body=${smsBody}` : `sms:?body=${smsBody}`;
-    window.setTimeout(() => {
+    setShowSmsForm(true);
+  }, [contact.firstName, contact.lastName, contact.phoneRaw, contact.email]);
+
+  const handleSendSms = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      const safeEmail = senderEmail.trim();
+      const safePhone = senderPhone.trim();
+
+      const messageLines = [
+        "Hi Robin, I just added you to my network.",
+        safeEmail ? `Email: ${safeEmail}` : null,
+        safePhone ? `Phone: ${safePhone}` : null,
+      ].filter(Boolean);
+
+      const smsBody = encodeURIComponent(messageLines.join("\n"));
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const smsTarget = contact.phoneRaw;
+      const smsUrl = isIOS
+        ? `sms:${smsTarget}&body=${smsBody}`
+        : `sms:${smsTarget}?body=${smsBody}`;
       window.location.href = smsUrl;
-    }, 650);
-  }, [contact.firstName, contact.lastName, contact.phoneRaw]);
+    },
+    [senderEmail, senderPhone, contact.phoneRaw]
+  );
 
   return (
     <div className="relative z-10 flex min-h-screen items-center justify-center px-5 py-10 sm:px-10">
@@ -89,8 +110,8 @@ export default function Home() {
           </button>
 
           <div className="mt-8 rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[rgba(15,18,22,0.8)] px-4 py-3 text-xs text-[var(--text-soft)]">
-            Works on Android and iOS. If your browser blocks one of the steps,
-            tap again after saving.
+            Works on Android and iOS. Save the contact, then confirm a quick
+            text with your info.
           </div>
 
           <footer className="mt-10 text-center text-xs tracking-[0.22em] text-[var(--text-soft)]">
@@ -100,6 +121,66 @@ export default function Home() {
             </div>
           </footer>
         </section>
+
+        {showSmsForm ? (
+          <div className="fixed inset-0 z-20 flex items-center justify-center px-5 py-10">
+            <div
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setShowSmsForm(false)}
+            />
+            <div className="card-surface card-rim relative z-10 w-full max-w-md rounded-[24px] px-6 py-7">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-[var(--text-soft)]">
+                    Send Intro Text
+                  </p>
+                  <h2 className="mt-2 text-2xl font-semibold text-[var(--text-strong)]">
+                    Add your info
+                  </h2>
+                  <p className="mt-2 text-sm text-[var(--text-soft)]">
+                    We will open a pre-filled text message to Robin.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowSmsForm(false)}
+                  className="rounded-full border border-[rgba(255,255,255,0.08)] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--text-soft)]"
+                >
+                  Close
+                </button>
+              </div>
+
+              <form className="mt-6 space-y-4" onSubmit={handleSendSms}>
+                <label className="block text-xs uppercase tracking-[0.25em] text-[var(--text-soft)]">
+                  Your Email
+                  <input
+                    type="email"
+                    value={senderEmail}
+                    onChange={(event) => setSenderEmail(event.target.value)}
+                    placeholder="you@email.com"
+                    className="mt-2 w-full rounded-xl border border-[rgba(255,255,255,0.1)] bg-[rgba(15,18,22,0.6)] px-4 py-3 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--accent-neon)]"
+                  />
+                </label>
+                <label className="block text-xs uppercase tracking-[0.25em] text-[var(--text-soft)]">
+                  Your Phone
+                  <input
+                    type="tel"
+                    value={senderPhone}
+                    onChange={(event) => setSenderPhone(event.target.value)}
+                    placeholder="(000) 000-0000"
+                    className="mt-2 w-full rounded-xl border border-[rgba(255,255,255,0.1)] bg-[rgba(15,18,22,0.6)] px-4 py-3 text-sm text-[var(--text-strong)] outline-none focus:border-[var(--accent-neon)]"
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="w-full rounded-2xl border border-[rgba(183,255,44,0.6)] bg-[rgba(183,255,44,0.18)] px-5 py-4 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-strong)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-neon)]"
+                >
+                  Open Text Message
+                </button>
+              </form>
+            </div>
+          </div>
+        ) : null}
       </main>
     </div>
   );
