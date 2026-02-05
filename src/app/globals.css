@@ -7,7 +7,11 @@
   --gunmetal-700: #2a3138;
   --gunmetal-600: #3b4450;
   --card-edge: #3b424b;
-  --accent-neon: #b7ff2c;
+  --accent-neon: #ff4bd1;
+  --accent-neon-12: rgba(255, 75, 209, 0.12);
+  --accent-neon-18: rgba(255, 75, 209, 0.18);
+  --accent-neon-60: rgba(255, 75, 209, 0.6);
+  --accent-neon-glow: rgba(255, 75, 209, 0.35);
   --text-soft: #d6dde6;
   --text-strong: #f4f7fb;
 }
@@ -56,7 +60,7 @@ body::before {
 }
 
 .accent-glow {
-  box-shadow: 0 0 18px rgba(183, 255, 44, 0.35);
+  box-shadow: 0 0 18px var(--accent-neon-glow);
 }
 
 @keyframes jiggle {

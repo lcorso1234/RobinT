@@ -103,7 +103,7 @@ export default function Home() {
           <button
             type="button"
             onClick={handleSaveContact}
-            className="animate-jiggle mt-7 w-full rounded-2xl border border-[rgba(183,255,44,0.6)] bg-[rgba(183,255,44,0.12)] px-5 py-4 text-base font-semibold uppercase tracking-[0.22em] text-[var(--text-strong)] shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-neon)]"
+            className="animate-jiggle mt-7 w-full rounded-2xl border border-[var(--accent-neon-60)] bg-[var(--accent-neon-12)] px-5 py-4 text-base font-semibold uppercase tracking-[0.22em] text-[var(--text-strong)] shadow-[0_12px_30px_rgba(0,0,0,0.35)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-neon)]"
             aria-label="Save contact and open text message"
           >
             Save Contact
@@ -173,7 +173,7 @@ export default function Home() {
                 </label>
                 <button
                   type="submit"
-                  className="w-full rounded-2xl border border-[rgba(183,255,44,0.6)] bg-[rgba(183,255,44,0.18)] px-5 py-4 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-strong)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-neon)]"
+                  className="w-full rounded-2xl border border-[var(--accent-neon-60)] bg-[var(--accent-neon-18)] px-5 py-4 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-strong)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-neon)]"
                 >
                   Open Text Message
                 </button>
