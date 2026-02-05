@@ -13,6 +13,7 @@ export default function Home() {
     phoneRaw: "7735510684",
     phoneDisplay: "773.551.0684",
     email: "robintoomey@gmail.com",
+    title: "Financial Consultant",
   };
 
   const handleSaveContact = useCallback(() => {
@@ -21,6 +22,7 @@ export default function Home() {
       "VERSION:3.0",
       `N:${contact.lastName};${contact.firstName};;;`,
       `FN:${contact.firstName} ${contact.lastName}`,
+      `TITLE:${contact.title}`,
       `TEL;TYPE=CELL,VOICE:${contact.phoneRaw}`,
       `EMAIL;TYPE=INTERNET:${contact.email}`,
       "END:VCARD",
@@ -89,6 +91,10 @@ export default function Home() {
                 {contact.phoneDisplay}
               </span>
             </p>
+            <p className="text-[0.95rem] uppercase tracking-[0.2em] text-[var(--text-soft)]">
+              Title:{" "}
+              <span className="text-[var(--text-strong)]">{contact.title}</span>
+            </p>
           </div>
 
           <div className="mt-6 h-[2px] w-16 bg-[var(--accent-neon)]" />
@@ -96,7 +102,10 @@ export default function Home() {
           <h1 className="mt-6 text-3xl font-semibold leading-tight text-[var(--text-strong)]">
             Robin Toomey
           </h1>
-          <p className="mt-2 text-sm leading-6 text-[var(--text-soft)]">
+          <p className="mt-2 text-xs uppercase tracking-[0.3em] text-[var(--text-soft)]">
+            {contact.title}
+          </p>
+          <p className="mt-3 text-sm leading-6 text-[var(--text-soft)]">
             Tap below to save the contact and open a pre-filled text message.
           </p>
 
