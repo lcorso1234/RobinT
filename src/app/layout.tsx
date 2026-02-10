@@ -14,8 +14,8 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Robin Toomey | Business Card",
-  description: "Mobile-first digital business card for Robin Toomey.",
+  title: "Robin Kearns | Business Card",
+  description: "Mobile-first digital business card for Robin Kearns.",
 };
 
 export default function RootLayout({

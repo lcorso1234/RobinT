@@ -9,7 +9,7 @@ export default function Home() {
 
   const contact = {
     firstName: "Robin",
-    lastName: "Toomey",
+    lastName: "Kearns",
     phoneRaw: "7735510684",
     phoneDisplay: "773.551.0684",
     email: "robintoomey@gmail.com",
@@ -100,7 +100,7 @@ export default function Home() {
           <div className="mt-6 h-[2px] w-16 bg-[var(--accent-neon)]" />
 
           <h1 className="mt-6 text-3xl font-semibold leading-tight text-[var(--text-strong)]">
-            Robin Toomey
+            Robin Kearns
           </h1>
           <p className="mt-2 text-xs uppercase tracking-[0.3em] text-[var(--text-soft)]">
             {contact.title}
